@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Andres Ontiveros - Portfolio</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Plus+Jakarta+Sans:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col-auto">
+            <div class="logo">
+              <img src="images/logo.png" alt="Andres Ontiveros Logo" />
+            </div>
+          </div>
+          <div class="col">
+            <nav class="navbar justify-content-end">
+              <a href="#home" class="active">Home</a>
+              <a href="#languages">Languages</a>
+              <a href="#projects">Projects</a>
+              <a href="#experience">Experience</a>
+              <a href="#contact">Contact</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="container-fluid">
+        <div class="row hero-content align-items-center">
+          <div class="col-lg-8 col-md-12">
+            <div class="hero-text">
+              <h1 class="hero-title">
+                I code and<br />
+                create content about<br />
+                <span class="highlight" id="typewriter">technology!</span>
+              </h1>
+              <p class="hero-description">
+                I'm a software developer and tech lead at Jelou, studying
+                Software Engineering. Passionate about building innovative web
+                solutions with AI, I have over 8 years of experience leading
+                teams and creating impactful products.
+              </p>
+              <div class="hero-buttons">
+                <button class="btn btn-primary">Contact Me</button>
+                <button class="btn btn-secondary">Download CV</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-12">
+            <div class="hero-image">
+              <div class="image-container">
+                <img
+                  src="images/profile.jpg"
+                  alt="Andres Ontiveros"
+                  class="profile-image"
+                />
+              </div>
+              <div class="name-badge">
+                <h2 class="name">Andres<br />Ontiveros</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Languages Section -->
+    <section class="languages" id="languages">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="section-title">LANGUAGES</h2>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+            <div class="language-card">
+              <div class="language-icon react">
+                <svg
+                  width="36"
+                  height="32"
+                  viewBox="0 0 36 32"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M29.4047 10.2085C29.025 10.0819 28.6453 9.9624 28.2656 9.8499C28.3289 9.58975 28.3852 9.32959 28.4414 9.06943C29.3062 4.87881 28.7367 1.51084 26.8172 0.399902C24.968 -0.661817 21.9516 0.442089 18.9 3.0999C18.5977 3.36006 18.3023 3.63428 18.0211 3.9085C17.8312 3.72568 17.6344 3.54287 17.4375 3.36709C14.2383 0.526465 11.032 -0.668848 9.1125 0.449121C7.27031 1.51787 6.72187 4.68896 7.49531 8.65459C7.57266 9.04834 7.65703 9.43506 7.75547 9.82881C7.30547 9.95537 6.8625 10.096 6.44766 10.2437C2.69297 11.5444 0 13.5976 0 15.721C0 17.9147 2.86875 20.1155 6.77109 21.4515C7.0875 21.5569 7.40391 21.6624 7.72734 21.7538C7.62188 22.1757 7.53047 22.5905 7.44609 23.0194C6.70781 26.9218 7.28438 30.0155 9.12656 31.0772C11.025 32.1741 14.2172 31.0491 17.325 28.328C17.5711 28.1101 17.8172 27.8851 18.0633 27.646C18.3727 27.9483 18.6961 28.2366 19.0195 28.5179C22.0289 31.1054 25.0031 32.153 26.8383 31.0913C28.7367 29.9944 29.3555 26.6687 28.5539 22.6187C28.4906 22.3093 28.4203 21.9929 28.343 21.6694C28.568 21.6062 28.7859 21.5358 29.0039 21.4655C33.0609 20.1226 36 17.9499 36 15.721C36 13.5905 33.2297 11.5233 29.4047 10.2085ZM19.8914 4.23896C22.507 1.96084 24.9469 1.06787 26.0578 1.70771C27.2461 2.38975 27.7031 5.146 26.9578 8.76709C26.9086 9.00615 26.8594 9.23818 26.7961 9.47021C25.2352 9.11865 23.6531 8.86553 22.0641 8.7249C21.15 7.41709 20.1516 6.16553 19.0688 4.99131C19.343 4.73115 19.6102 4.48506 19.8914 4.23896ZM11.7562 19.3702C12.1148 19.9819 12.4805 20.5937 12.8672 21.1913C11.7703 21.0718 10.6805 20.896 9.60469 20.664C9.91406 19.6515 10.3008 18.6038 10.7508 17.5351C11.0742 18.1538 11.4047 18.7655 11.7562 19.3702ZM9.62578 10.9116C10.6383 10.6866 11.7141 10.5038 12.832 10.3632C12.4594 10.9468 12.0938 11.5444 11.7492 12.1491C11.4047 12.7468 11.0672 13.3585 10.7508 13.9772C10.3078 12.9296 9.93516 11.903 9.62578 10.9116ZM11.5523 15.7562C12.0164 14.7858 12.5227 13.8366 13.057 12.9015C13.5914 11.9663 14.168 11.0593 14.7727 10.1663C15.8273 10.089 16.9031 10.0468 18 10.0468C19.0969 10.0468 20.1797 10.089 21.2273 10.1663C21.825 11.0522 22.3945 11.9593 22.9359 12.8874C23.4773 13.8155 23.9836 14.7647 24.4617 15.728C23.9906 16.6983 23.4844 17.6546 22.943 18.5968C22.4086 19.5319 21.8391 20.439 21.2414 21.339C20.1938 21.4163 19.1039 21.4515 18 21.4515C16.8961 21.4515 15.8273 21.4163 14.7937 21.353C14.182 20.4601 13.6055 19.546 13.0641 18.6108C12.5227 17.6757 12.0234 16.7265 11.5523 15.7562ZM24.2508 19.3562C24.6094 18.7374 24.9469 18.1116 25.2773 17.4788C25.7273 18.4983 26.1211 19.5319 26.4656 20.5937C25.3758 20.8397 24.2719 21.0296 23.1609 21.1562C23.5406 20.5655 23.8992 19.9608 24.2508 19.3562ZM25.2633 13.9772C24.9328 13.3585 24.5953 12.7397 24.2437 12.1351C23.8992 11.5374 23.5406 10.9468 23.168 10.3632C24.3 10.5038 25.3828 10.6937 26.3953 10.9257C26.0719 11.9663 25.6922 12.9788 25.2633 13.9772ZM18.0141 6.06709C18.7523 6.86865 19.4484 7.7124 20.0953 8.58428C18.7031 8.521 17.3039 8.521 15.9117 8.58428C16.6008 7.67725 17.3109 6.8335 18.0141 6.06709ZM9.85781 1.75693C11.0391 1.06787 13.6617 2.05225 16.425 4.49912C16.6008 4.65381 16.7766 4.82256 16.9594 4.99131C15.8695 6.16553 14.8641 7.41709 13.943 8.7249C12.3539 8.86553 10.7789 9.11162 9.21797 9.45615C9.12656 9.09756 9.04922 8.73193 8.97188 8.36631C8.31094 4.96318 8.74687 2.39678 9.85781 1.75693ZM8.13516 20.2913C7.83984 20.2069 7.55156 20.1155 7.26328 20.0171C5.76563 19.546 4.06406 18.8007 2.83359 17.8233C2.12344 17.3312 1.64531 16.5718 1.51172 15.721C1.51172 14.4343 3.73359 12.789 6.93984 11.671C7.34062 11.5304 7.74844 11.4038 8.15625 11.2843C8.63437 12.8101 9.21094 14.3077 9.87891 15.7562C9.20391 17.2257 8.62031 18.7444 8.13516 20.2913ZM16.3336 27.1819C15.1734 28.2437 13.8305 29.0874 12.368 29.664C11.5875 30.0366 10.6875 30.0718 9.88594 29.7554C8.76797 29.1085 8.30391 26.6265 8.93672 23.2866C9.01406 22.8929 9.09844 22.4991 9.19688 22.1124C10.7719 22.4499 12.3609 22.6819 13.9711 22.8015C14.8992 24.1163 15.9187 25.3749 17.0086 26.5562C16.7836 26.7741 16.5586 26.9851 16.3336 27.1819ZM18.0562 25.4733C17.3391 24.6999 16.6219 23.8421 15.9258 22.921C16.6008 22.9491 17.2969 22.9632 18 22.9632C18.7242 22.9632 19.4344 22.9491 20.1375 22.914C19.4906 23.8069 18.7945 24.6577 18.0562 25.4733ZM27.2461 27.5827C27.1828 28.4405 26.7609 29.2421 26.0859 29.7835C24.968 30.4304 22.5844 29.5866 20.0109 27.3788C19.7156 27.1257 19.4203 26.8515 19.118 26.5702C20.1938 25.3819 21.1852 24.1233 22.0852 22.8015C23.6953 22.6679 25.2984 22.4218 26.8805 22.0632C26.9508 22.3515 27.0141 22.6397 27.0703 22.921C27.4148 24.4397 27.4711 26.0218 27.2461 27.5827ZM28.5258 20.0241C28.3289 20.0874 28.132 20.1507 27.9281 20.2069C27.4359 18.6741 26.8313 17.1765 26.1352 15.721C26.8102 14.2866 27.3797 12.8101 27.8578 11.2983C28.2234 11.4038 28.575 11.5163 28.9125 11.6288C32.1891 12.7538 34.4883 14.4272 34.4883 15.7069C34.4883 17.0851 32.0344 18.864 28.5258 20.0241ZM18 18.9694C19.7789 18.9694 21.2203 17.528 21.2203 15.7491C21.2203 13.9702 19.7789 12.5288 18 12.5288C16.2211 12.5288 14.7797 13.9702 14.7797 15.7491C14.7797 17.528 16.2211 18.9694 18 18.9694Z"
+                    fill="url(#paint0_linear_2032_364)"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="paint0_linear_2032_364"
+                      x1="18"
+                      y1="0"
+                      x2="18"
+                      y2="31.5017"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stop-color="#3B82F6" />
+                      <stop
+                        offset="1"
+                        stop-color="#234C90"
+                        stop-opacity="0.6"
+                      />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              <h3 class="language-name">React</h3>
+              <span class="language-level">Advanced</span>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+            <div class="language-card">
+              <div class="language-icon nodejs">
+                <svg
+                  width="32"
+                  height="36"
+                  viewBox="0 0 32 36"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15.9516 36C15.473 36 14.9872 35.8714 14.5657 35.6285L10.1581 33.0211C9.50094 32.6497 9.8224 32.5211 10.0367 32.4496C10.9154 32.1425 11.094 32.0782 12.0298 31.5424C12.1298 31.4853 12.2584 31.5067 12.3584 31.571L15.7444 33.5783C15.8659 33.6498 16.0373 33.6498 16.1516 33.5783L29.3458 25.9633C29.4672 25.8919 29.5458 25.749 29.5458 25.6061V10.376C29.5458 10.226 29.4672 10.0903 29.3386 10.0117L16.1516 2.40381C16.0302 2.33237 15.8659 2.33237 15.7444 2.40381L2.56454 10.0188C2.43596 10.0903 2.35738 10.2332 2.35738 10.3832V25.6061C2.35738 25.749 2.43596 25.8919 2.56454 25.9561L6.17918 28.0421C8.14366 29.0207 9.34378 27.8706 9.34378 26.7062V11.6762C9.34378 11.4618 9.51523 11.2975 9.72953 11.2975H11.4011C11.6083 11.2975 11.7869 11.4618 11.7869 11.6762V26.7134C11.7869 29.3279 10.3582 30.8281 7.87935 30.8281C7.11499 30.8281 6.51493 30.8281 4.84334 29.9994L1.38585 28.0063C0.528624 27.5134 0 26.5919 0 25.599V10.376C0 9.39022 0.528624 8.46155 1.38585 7.96865L14.5657 0.353606C15.4015 -0.117869 16.5088 -0.117869 17.3374 0.353606L30.5316 7.97579C31.3888 8.4687 31.9174 9.39022 31.9174 10.3832V25.6061C31.9174 26.5919 31.3888 27.5134 30.5316 28.0135L17.3374 35.6285C16.916 35.8714 16.4373 36 15.9516 36ZM26.6026 20.9914C26.6026 18.1411 24.6739 17.3839 20.6235 16.8481C16.5231 16.3052 16.1087 16.0266 16.1087 15.0693C16.1087 14.2764 16.4588 13.2192 19.4948 13.2192C22.2022 13.2192 23.2023 13.8049 23.6166 15.6337C23.6523 15.8051 23.8095 15.9337 23.9881 15.9337H25.7025C25.8097 15.9337 25.9097 15.8909 25.9811 15.8123C26.0526 15.7337 26.0883 15.6265 26.0812 15.5194C25.8168 12.3691 23.7238 10.9047 19.4948 10.9047C15.7301 10.9047 13.4871 12.4905 13.4871 15.1551C13.4871 18.0411 15.723 18.8412 19.3305 19.1983C23.6523 19.6198 23.9881 20.2556 23.9881 21.1057C23.9881 22.5772 22.8023 23.2059 20.0234 23.2059C16.5302 23.2059 15.7658 22.3272 15.5087 20.5913C15.4801 20.4056 15.3229 20.2699 15.1301 20.2699H13.4228C13.2085 20.2699 13.0441 20.4413 13.0441 20.6485C13.0441 22.8701 14.2514 25.5204 20.0306 25.5204C24.2024 25.5132 26.6026 23.8631 26.6026 20.9914Z"
+                    fill="url(#paint0_linear_2032_401)"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="paint0_linear_2032_401"
+                      x1="15.9587"
+                      y1="0"
+                      x2="15.9587"
+                      y2="36"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stop-color="#10B981" />
+                      <stop
+                        offset="1"
+                        stop-color="#07533A"
+                        stop-opacity="0.6"
+                      />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              <h3 class="language-name">Node.js</h3>
+              <span class="language-level">Advanced</span>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+            <div class="language-card">
+              <div class="language-icon python">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M31.4133 12.0354C30.8633 9.82833 29.8205 8.1641 27.5991 8.1641H24.7349V11.5497C24.7349 14.1782 22.5064 16.3924 19.9637 16.3924H12.3353C10.2497 16.3924 8.52119 18.178 8.52119 20.2708V27.542C8.52119 29.6134 10.3211 30.8276 12.3353 31.4205C14.7496 32.1276 17.0709 32.2561 19.9637 31.4205C21.885 30.8633 23.7778 29.7419 23.7778 27.542V24.635H16.1566V23.6636H27.5991C29.8205 23.6636 30.6419 22.1136 31.4133 19.7923C32.2132 17.3995 32.1775 15.0996 31.4133 12.0354ZM20.4422 26.5706C21.2351 26.5706 21.8779 27.2206 21.8779 28.0206C21.8779 28.8277 21.2351 29.4777 20.4422 29.4777C19.6565 29.4777 19.0066 28.8205 19.0066 28.0206C19.0137 27.2135 19.6565 26.5706 20.4422 26.5706ZM11.9854 15.4353H19.6137C21.735 15.4353 23.4278 13.6853 23.4278 11.5568V4.27852C23.4278 2.20716 21.685 0.657213 19.6137 0.307225C17.0566 -0.11419 14.2781 -0.0927616 11.9854 0.314367C8.7569 0.885777 8.1712 2.07859 8.1712 4.28566V7.19271H15.8067V8.1641H5.30702C3.08566 8.1641 1.14287 9.49977 0.53575 12.0354C-0.164227 14.9424 -0.192797 16.7567 0.53575 19.7923C1.07859 22.0493 2.3714 23.6636 4.59276 23.6636H7.21409V20.178C7.21409 17.6566 9.39259 15.4353 11.9854 15.4353ZM11.5068 5.24991C10.714 5.24991 10.0711 4.59994 10.0711 3.79996C10.0783 2.99285 10.714 2.34287 11.5068 2.34287C12.2925 2.34287 12.9425 2.99999 12.9425 3.79996C12.9425 4.59994 12.2996 5.24991 11.5068 5.24991Z"
+                    fill="url(#paint0_linear_2032_379)"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="paint0_linear_2032_379"
+                      x1="16"
+                      y1="0"
+                      x2="16"
+                      y2="32"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stop-color="#F59E0B" />
+                      <stop offset="1" stop-color="#8F5C06" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              <h3 class="language-name">Python</h3>
+              <span class="language-level">Advanced</span>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+            <div class="language-card">
+              <div class="language-icon javascript">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M0 0V32H32V0H0ZM17.4143 24.9571C17.4143 28.0714 15.5857 29.4929 12.9214 29.4929C10.5143 29.4929 9.12143 28.25 8.40714 26.7429L10.8571 25.2643C11.3286 26.1 11.7571 26.8071 12.7929 26.8071C13.7786 26.8071 14.4071 26.4214 14.4071 24.9143V14.6929H17.4143V24.9571ZM24.5286 29.4929C21.7357 29.4929 19.9286 28.1643 19.05 26.4214L21.5 25.0071C22.1429 26.0571 22.9857 26.8357 24.4643 26.8357C25.7071 26.8357 26.5071 26.2143 26.5071 25.35C26.5071 24.3214 25.6929 23.9571 24.3143 23.35L23.5643 23.0286C21.3929 22.1071 19.9571 20.9429 19.9571 18.4929C19.9571 16.2357 21.6786 14.5214 24.3571 14.5214C26.2714 14.5214 27.6429 15.1857 28.6286 16.9286L26.2857 18.4286C25.7714 17.5071 25.2143 17.1429 24.35 17.1429C23.4714 17.1429 22.9143 17.7 22.9143 18.4286C22.9143 19.3286 23.4714 19.6929 24.7643 20.2571L25.5143 20.5786C28.0714 21.6714 29.5071 22.7929 29.5071 25.3071C29.5071 28.0071 27.3786 29.4929 24.5286 29.4929Z"
+                    fill="url(#paint0_linear_2032_388)"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="paint0_linear_2032_388"
+                      x1="16"
+                      y1="0"
+                      x2="16"
+                      y2="32"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stop-color="#FBBF24" />
+                      <stop offset="1" stop-color="#957115" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              <h3 class="language-name">Javascript</h3>
+              <span class="language-level">Advanced</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Projects Section -->
+    <section class="projects" id="projects">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 text-center mb-5">
+            <h2 class="section-title">Recent Projects</h2>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="project-card">
+              <div class="project-image">
+                <img
+                  src="images/project1.jpg"
+                  alt="Biometric Agent – Chatbot"
+                />
+              </div>
+              <div class="project-overlay">
+                <h3 class="project-title">Biometric Agent – Chatbot</h3>
+                <p class="project-description">
+                  Chatbot en WhatsApp para validar identidad mediante biometría
+                  y datos personales.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="project-card">
+              <div class="project-image">
+                <img src="images/project2.jpg" alt="Amicloud" />
+              </div>
+              <div class="project-overlay">
+                <h3 class="project-title">Amicloud</h3>
+                <p class="project-description">
+                  Sistema de monitoreo en tiempo real para medidores
+                  inteligentes
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="project-card">
+              <div class="project-image">
+                <img src="images/project3.jpg" alt="AMI Management" />
+              </div>
+              <div class="project-overlay">
+                <h3 class="project-title">AMI Management</h3>
+                <p class="project-description">
+                  Sistema para administracion general de empresas de medidores
+                  electricos
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience" id="experience">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="section-title">EXPERIENCE</h2>
+          </div>
+        </div>
+        <div class="experience-content">
+          <div class="experience-item">
+            <div class="experience-header">
+              <img
+                src="images/jelou-logo.png"
+                alt="Jelou"
+                class="company-logo"
+              />
+              <h3 class="company-position">Tech Lead Product Team</h3>
+              <div class="experience-period">Oct 2024 - Present</div>
+            </div>
+            <p class="experience-description">
+              Led a multidisciplinary team in the development of scalable SaaS
+              products, defining technical strategies and ensuring timely
+              delivery. Mentored engineers and fostered a collaborative,
+              high-performance environment.<br />Oversaw the implementation of
+              innovative solutions aligned with business objectives.
+            </p>
+          </div>
+
+          <div class="experience-item">
+            <div class="experience-header">
+              <img
+                src="images/easymetering-logo.png"
+                alt="Easymetering"
+                class="company-logo"
+              />
+              <h3 class="company-position">Senior Software Engineering</h3>
+              <div class="experience-period">Dic 2020 - Oct 2024</div>
+            </div>
+            <p class="experience-description">
+              Designed and developed robust backend systems for smart metering
+              solutions. Architected secure, scalable APIs and optimized data
+              processing pipelines. Collaborated with cross-functional teams to
+              deliver reliable software.
+            </p>
+          </div>
+
+          <div class="experience-item">
+            <div class="experience-header">
+              <img
+                src="images/easymetering-logo.png"
+                alt="Easymetering"
+                class="company-logo"
+              />
+              <h3 class="company-position">Full Stack Developer</h3>
+              <div class="experience-period">Mar 2017 - Dic 2020</div>
+            </div>
+            <p class="experience-description">
+              Developed both backend services and modern frontend interfaces for
+              energy management platforms. Built real-time data visualization
+              tools and RESTful APIs. Ensured seamless user experiences and
+              maintained high code quality.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container-fluid">
+        <div class="footer-content">
+          <div class="footer-info">
+            <h3 class="footer-name">Andres Ontiveros</h3>
+            <p class="footer-role">Software Engineering</p>
+          </div>
+          <div class="footer-social">
+            <a href="#" class="social-link">
+              <img
+                src="images/github-icon.svg"
+                alt="GitHub"
+                class="social-icon"
+              />
+            </a>
+            <a href="#" class="social-link">
+              <img
+                src="images/linkedin-icon.svg"
+                alt="LinkedIn"
+                class="social-icon"
+              />
+            </a>
+            <a href="#" class="social-link">
+              <img
+                src="images/twitter-icon.svg"
+                alt="Twitter"
+                class="social-icon"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
