@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Andres Ontiveros - Portfolio</title>
     <!-- Bootstrap CSS -->
-    <link
+    <!-- <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    /> -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
       crossorigin="anonymous"
     />
     <link
@@ -44,8 +50,10 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
       <div class="container-fluid">
-        <div class="row hero-content align-items-center">
-          <div class="col-lg-8 col-md-12">
+        <div class="row align-items-center justify-content-center">
+          <div
+            class="col-lg-8 col-md-12 order-2 order-lg-1 text-center text-lg-start d-flex justify-content-center"
+          >
             <div class="hero-text">
               <h1 class="hero-title">
                 I code and<br />
@@ -58,13 +66,17 @@
                 solutions with AI, I have over 8 years of experience leading
                 teams and creating impactful products.
               </p>
-              <div class="hero-buttons">
+              <div
+                class="hero-buttons d-flex justify-content-center justify-content-lg-start"
+              >
                 <button class="btn btn-primary">Contact Me</button>
                 <button class="btn btn-secondary">Download CV</button>
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-md-12">
+          <div
+            class="col-lg-4 col-md-12 order-1 order-lg-2 text-center d-flex justify-content-center"
+          >
             <div class="hero-image">
               <div class="image-container">
                 <img
@@ -91,7 +103,7 @@
           </div>
         </div>
         <div class="row justify-content-center">
-          <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
             <div class="language-card">
               <div class="language-icon react">
                 <svg
@@ -128,7 +140,7 @@
               <span class="language-level">Advanced</span>
             </div>
           </div>
-          <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
             <div class="language-card">
               <div class="language-icon nodejs">
                 <svg
@@ -165,7 +177,7 @@
               <span class="language-level">Advanced</span>
             </div>
           </div>
-          <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
             <div class="language-card">
               <div class="language-icon python">
                 <svg
@@ -198,7 +210,7 @@
               <span class="language-level">Advanced</span>
             </div>
           </div>
-          <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
             <div class="language-card">
               <div class="language-icon javascript">
                 <svg
@@ -239,8 +251,8 @@
     <section class="projects" id="projects">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-12 text-center mb-5">
-            <h2 class="section-title">Recent Projects</h2>
+          <div class="col-12">
+            <h2 class="section-title">RECENT PROJECTS</h2>
           </div>
         </div>
         <div class="row justify-content-center">
@@ -302,59 +314,80 @@
           </div>
         </div>
         <div class="experience-content">
-          <div class="experience-item">
-            <div class="experience-header">
+          <!-- Experience Item 1 -->
+          <div class="row experience-item mb-5">
+            <div
+              class="col-lg-2 col-md-3 col-12 text-center text-lg-start mb-3 mb-lg-0"
+            >
               <img
                 src="images/jelou-logo.png"
                 alt="Jelou"
                 class="company-logo"
               />
+            </div>
+            <div class="col-lg-7 col-md-6 col-12">
               <h3 class="company-position">Tech Lead Product Team</h3>
+              <p class="experience-description">
+                Led a multidisciplinary team in the development of scalable SaaS
+                products, defining technical strategies and ensuring timely
+                delivery. Mentored engineers and fostered a collaborative,
+                high-performance environment.<br />Oversaw the implementation of
+                innovative solutions aligned with business objectives.
+              </p>
+            </div>
+            <div class="col-lg-3 col-md-3 col-12 text-center text-lg-end">
               <div class="experience-period">Oct 2024 - Present</div>
             </div>
-            <p class="experience-description">
-              Led a multidisciplinary team in the development of scalable SaaS
-              products, defining technical strategies and ensuring timely
-              delivery. Mentored engineers and fostered a collaborative,
-              high-performance environment.<br />Oversaw the implementation of
-              innovative solutions aligned with business objectives.
-            </p>
           </div>
 
-          <div class="experience-item">
-            <div class="experience-header">
+          <!-- Experience Item 2 -->
+          <div class="row experience-item mb-5">
+            <div
+              class="col-lg-2 col-md-3 col-12 text-center text-lg-start mb-3 mb-lg-0"
+            >
               <img
                 src="images/easymetering-logo.png"
                 alt="Easymetering"
                 class="company-logo"
               />
+            </div>
+            <div class="col-lg-7 col-md-6 col-12">
               <h3 class="company-position">Senior Software Engineering</h3>
+              <p class="experience-description">
+                Designed and developed robust backend systems for smart metering
+                solutions. Architected secure, scalable APIs and optimized data
+                processing pipelines. Collaborated with cross-functional teams
+                to deliver reliable software.
+              </p>
+            </div>
+            <div class="col-lg-3 col-md-3 col-12 text-center text-lg-end">
               <div class="experience-period">Dic 2020 - Oct 2024</div>
             </div>
-            <p class="experience-description">
-              Designed and developed robust backend systems for smart metering
-              solutions. Architected secure, scalable APIs and optimized data
-              processing pipelines. Collaborated with cross-functional teams to
-              deliver reliable software.
-            </p>
           </div>
 
-          <div class="experience-item">
-            <div class="experience-header">
+          <!-- Experience Item 3 -->
+          <div class="row experience-item mb-5">
+            <div
+              class="col-lg-2 col-md-3 col-12 text-center text-lg-start mb-3 mb-lg-0"
+            >
               <img
                 src="images/easymetering-logo.png"
                 alt="Easymetering"
                 class="company-logo"
               />
+            </div>
+            <div class="col-lg-7 col-md-6 col-12">
               <h3 class="company-position">Full Stack Developer</h3>
+              <p class="experience-description">
+                Developed both backend services and modern frontend interfaces
+                for energy management platforms. Built real-time data
+                visualization tools and RESTful APIs. Ensured seamless user
+                experiences and maintained high code quality.
+              </p>
+            </div>
+            <div class="col-lg-3 col-md-3 col-12 text-center text-lg-end">
               <div class="experience-period">Mar 2017 - Dic 2020</div>
             </div>
-            <p class="experience-description">
-              Developed both backend services and modern frontend interfaces for
-              energy management platforms. Built real-time data visualization
-              tools and RESTful APIs. Ensured seamless user experiences and
-              maintained high code quality.
-            </p>
           </div>
         </div>
       </div>
@@ -397,8 +430,8 @@
 
     <!-- Bootstrap JS -->
     <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
       crossorigin="anonymous"
     ></script>
   </body>

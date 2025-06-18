@@ -1,96 +1,142 @@
 # Andres Ontiveros Portfolio
 
-A modern, responsive portfolio website built based on the Figma design specifications.
+A modern, responsive portfolio website showcasing my expertise as a Software Developer and Tech Lead. Built with Bootstrap 5 and following the exact Figma design specifications.
 
-## Features
+## 🌐 Live Demo
 
-- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
-- **Modern UI**: Clean and professional design matching the Figma specifications
-- **Smooth Animations**: Hover effects and smooth scrolling
-- **Section Navigation**: Header navigation with smooth scrolling to sections
+**🚀 Visit the live website**: [https://andresuisek.github.io/me-portfolio/](https://andresuisek.github.io/me-portfolio/)
 
-## Design Specifications
+## 👤 About Me
 
-This portfolio follows the exact Figma design specifications including:
+**Andres Ontiveros**  
+Software Developer & Tech Lead at Jelou  
+📧 Email: [your-email@example.com](mailto:your-email@example.com)  
+🌐 LinkedIn: [linkedin.com/in/andres-ontiveros](https://linkedin.com/in/andres-ontiveros)  
+💻 GitHub: [github.com/andres-ontiveros](https://github.com/andres-ontiveros)  
+📍 Location: Your City, Country
 
-- **Colors**: Dark theme (#2A2A2A background, #191919 for sections)
-- **Typography**: Poppins font family with specific weights and sizes
-- **Layout**: 1440px max width with proper spacing and grid layouts
-- **Gradients**: Blue gradient (#1976D2 to #525252) for highlighted text
+I'm a passionate software developer and tech lead at Jelou, studying Software Engineering. With over 8 years of experience leading teams and creating impactful products, I specialize in building innovative web solutions with AI.
 
-## Sections
+## 🎨 Design Reference
 
-1. **Header**: Fixed navigation with logo and menu items
-2. **Hero**: Main introduction with profile image and call-to-action buttons
-3. **Languages**: Programming languages with skill levels and icons
-4. **Projects**: Recent projects showcase with hover effects
-5. **Experience**: Professional experience timeline
-6. **Footer**: Contact information and social links
+This portfolio is built based on the Figma design specifications:  
+**Design Link**: [Figma - Portfolio Andres Ontiveros](https://www.figma.com/design/lFQBAJelnl5beCIG5p9yaN/Portfolio---Andres-Ontiveros?node-id=2032-1868&t=y7JWhXwC3GiUP40W-1)
 
-## Required Images
+## ✨ Features
 
-To complete the portfolio, you need to add the following images:
+- **Fully Responsive Design**: Optimized for all devices using Bootstrap 5 grid system
+- **Modern UI/UX**: Clean and professional design matching Figma specifications
+- **Smooth Animations**: Hover effects, transitions, and scroll animations
+- **Fixed Navigation**: Responsive header with smooth scroll to sections
+- **Gradient Typography**: Beautiful gradient text effects for highlights
+- **Interactive Cards**: Hover effects on language and project cards
+- **Professional Layout**: Grid-based layout with proper spacing and alignment
+- **Cross-browser Compatible**: Works seamlessly across all modern browsers
+- **Performance Optimized**: Fast loading with optimized assets
 
-### Essential Images
+## 📋 Sections
 
-- `logo.png` - Company/personal logo (217x56px)
-- `profile.jpg` - Professional headshot (272x272px, will be circular)
+### 1. **Header Navigation**
 
-### Project Images
+- Fixed position with backdrop blur effect
+- Logo and responsive navigation menu
+- Smooth scroll to page sections
+- Active section highlighting
 
-- `project1.jpg` - Biometric Agent Chatbot project screenshot
-- `project2.jpg` - Amicloud project screenshot
-- `project3.jpg` - AMI Management project screenshot
+### 2. **Hero Section**
 
-### Company Logos
+- Professional profile image with circular border
+- Dynamic typewriter effect on highlight text
+- Call-to-action buttons (Contact Me, Download CV)
+- Responsive layout: horizontal on desktop, vertical on mobile
 
-- `jelou-logo.png` - Jelou company logo (89x23px)
-- `easymetering-logo.png` - Easymetering company logo (89x23px)
+### 3. **Languages Section**
 
-## File Structure
+- Programming languages showcase with custom icons
+- Skill level indicators (Advanced, Intermediate, etc.)
+- Grid layout: 4 columns on desktop, 2 on tablet, 1 on mobile
+- Hover effects with shadow animations
+
+### 4. **Recent Projects Section**
+
+- Project portfolio with image overlays
+- Project descriptions and technologies used
+- Hover effects with smooth transitions
+- Responsive grid layout
+
+### 5. **Experience Section**
+
+- Professional timeline with company logos
+- Job titles, descriptions, and date ranges
+- Bootstrap grid system for responsive layout
+- Clean typography hierarchy
+
+### 6. **Footer**
+
+- Personal branding and contact information
+- Social media links with hover effects
+- Consistent spacing and typography
+
+## 📁 File Structure
 
 ```
-portfolio/
-├── index.html          # Main HTML file
-├── styles.css          # CSS styles matching Figma design
-├── README.md           # This file
-└── images/             # Image assets (to be added)
-    ├── logo.png
-    ├── profile.jpg
-    ├── project1.jpg
-    ├── project2.jpg
-    ├── project3.jpg
-    ├── jelou-logo.png
-    └── easymetering-logo.png
+me-portfolio/
+├── index.html              # Main HTML file with Bootstrap structure
+├── styles.css              # Custom CSS styles matching Figma design
+├── script.js               # JavaScript for interactive features
+├── README.md               # Project documentation
+└── images/                 # Image assets directory
+    ├── logo.png            # Personal/company logo (217x56px)
+    ├── profile.jpg         # Professional headshot (circular crop)
+    ├── project1.jpg        # Biometric Agent Chatbot screenshot
+    ├── project2.jpg        # Amicloud project screenshot
+    ├── project3.jpg        # AMI Management screenshot
+    ├── jelou-logo.png      # Jelou company logo
+    ├── easymetering-logo.png # Easymetering company logo
+    ├── github-icon.svg     # GitHub social icon
+    ├── linkedin-icon.svg   # LinkedIn social icon
+    ├── twitter-icon.svg    # Twitter social icon
+    ├── javascript-icon.svg # JavaScript technology icon
+    ├── nodejs-icon.svg     # Node.js technology icon
+    └── python-icon.svg     # Python technology icon
 ```
 
-## Getting Started
+## 🌐 Browser Support
 
-1. Open `index.html` in a web browser
-2. Add the required images to match the design exactly
-3. Customize the content as needed
+| Browser | Version | Status             |
+| ------- | ------- | ------------------ |
+| Chrome  | 90+     | ✅ Fully Supported |
+| Firefox | 88+     | ✅ Fully Supported |
+| Safari  | 14+     | ✅ Fully Supported |
+| Edge    | 90+     | ✅ Fully Supported |
+| Opera   | 76+     | ✅ Fully Supported |
 
-## Browser Support
+## 📱 Responsive Breakpoints
 
-- Chrome (recommended)
-- Firefox
-- Safari
-- Edge
+| Device Type             | Screen Size     | Layout               | Grid Columns                   |
+| ----------------------- | --------------- | -------------------- | ------------------------------ |
+| **Extra Large Desktop** | ≥ 1400px        | Full width container | 4 columns (Languages/Projects) |
+| **Large Desktop**       | 1200px - 1399px | Responsive container | 4 columns (Languages/Projects) |
+| **Medium Desktop**      | 1100px - 1199px | Reduced padding      | 2x2 grid (Languages/Projects)  |
+| **Small Desktop**       | 992px - 1099px  | Compact layout       | 2x2 grid                       |
+| **Tablet**              | 768px - 991px   | Stacked sections     | 2 columns                      |
+| **Mobile Large**        | 576px - 767px   | Single column        | 1 column                       |
+| **Mobile Small**        | < 576px         | Minimal padding      | 1 column                       |
 
-## Responsive Breakpoints
+## 🔧 Technologies Used
 
-- Desktop: 1200px+
-- Tablet: 768px - 1199px
-- Mobile: < 768px
+- **HTML5**: Semantic markup structure
+- **CSS3**: Custom styles with Flexbox/Grid
+- **Bootstrap 5.3.2**: Responsive grid system and utilities
+- **JavaScript**: Interactive features and animations
+- **Google Fonts**: Poppins and Plus Jakarta Sans
+- **SVG Icons**: Scalable vector graphics for technologies
 
-## Color Palette
+## 📄 License
 
-- **Primary Background**: #2A2A2A
-- **Secondary Background**: #191919
-- **Text Primary**: #FFFFFF
-- **Text Secondary**: #8491A0
-- **Text Muted**: #C5C5C5
-- **Accent**: #1976D2
-- **Borders**: #E5E7EB
+This project is for portfolio purposes. Feel free to use as inspiration for your own portfolio.
 
-The design matches the Figma specifications exactly for a professional portfolio presentation.
+---
+
+**Built with ❤️ by Andres Ontiveros**  
+_Software Developer & Tech Lead_

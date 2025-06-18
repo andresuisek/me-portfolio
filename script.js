@@ -64,16 +64,16 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Add parallax effect to hero section
-  window.addEventListener("scroll", function () {
-    const scrolled = window.pageYOffset;
-    const hero = document.querySelector(".hero");
-    const profileImage = document.querySelector(".profile-image");
+  // window.addEventListener("scroll", function () {
+  //   const scrolled = window.pageYOffset;
+  //   const hero = document.querySelector(".hero");
+  //   const profileImage = document.querySelector(".profile-image");
 
-    if (hero && profileImage) {
-      const rate = scrolled * -0.5;
-      profileImage.style.transform = `translateY(${rate}px)`;
-    }
-  });
+  //   if (hero && profileImage) {
+  //     const rate = scrolled * -0.5;
+  //     profileImage.style.transform = `translateY(${rate}px)`;
+  //   }
+  // });
 
   // Add hover effects to project cards
   const projectCards = document.querySelectorAll(".project-card");
