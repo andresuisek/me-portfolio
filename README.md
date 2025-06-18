@@ -10,8 +10,8 @@ A modern, responsive portfolio website showcasing my expertise as a Software Dev
 
 **Andres Ontiveros**  
 Software Developer & Tech Lead at Jelou  
-📧 Email: [your-email@example.com](mailto:andres.ontiveros@uisek.edu.ec)  
-💻 GitHub: [github.com/andres-ontiveros](https://github.com/andresuisek)  
+📧 Email: [andres.ontiveros@uisek.edu.ec](mailto:andres.ontiveros@uisek.edu.ec)  
+💻 GitHub: [github.com/andresuisek](https://github.com/andresuisek)  
 📍 Location: Ecuador, Guayaquil.
 
 I'm a passionate software developer and tech lead at Jelou, studying Software Engineering. With over 8 years of experience leading teams and creating impactful products, I specialize in building innovative web solutions with AI.
