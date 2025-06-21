@@ -2,6 +2,11 @@
 
 A modern, responsive portfolio website showcasing my expertise as a Software Developer and Tech Lead. Built with Bootstrap 5 and following the exact Figma design specifications.
 
+## 🎨 Design Reference
+
+This portfolio is built based on the Figma design specifications:  
+**Design Link**: [Figma - Portfolio Andres Ontiveros](https://www.figma.com/design/lFQBAJelnl5beCIG5p9yaN/Portfolio---Andres-Ontiveros?node-id=2032-1868&t=y7JWhXwC3GiUP40W-1)
+
 ## 🌐 Live Demo
 
 **🚀 Visit the live website**: [https://andresuisek.github.io/me-portfolio/](https://andresuisek.github.io/me-portfolio/)
@@ -15,11 +20,6 @@ Software Developer & Tech Lead at Jelou
 📍 Location: Ecuador, Guayaquil.
 
 I'm a passionate software developer and tech lead at Jelou, studying Software Engineering. With over 8 years of experience leading teams and creating impactful products, I specialize in building innovative web solutions with AI.
-
-## 🎨 Design Reference
-
-This portfolio is built based on the Figma design specifications:  
-**Design Link**: [Figma - Portfolio Andres Ontiveros](https://www.figma.com/design/lFQBAJelnl5beCIG5p9yaN/Portfolio---Andres-Ontiveros?node-id=2032-1868&t=y7JWhXwC3GiUP40W-1)
 
 ## ✨ Features
 
