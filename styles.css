@@ -1652,6 +1652,70 @@ html {
   border-color: #1976d2;
 }
 
+.webgazer-menu-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  color: #999 !important;
+  background: #f9f9f9 !important;
+  border-color: #e0e0e0 !important;
+}
+
+.webgazer-menu-btn.disabled:hover {
+  background: #f9f9f9 !important;
+  border-color: #e0e0e0 !important;
+  color: #999 !important;
+}
+
+/* Tooltips for disabled buttons */
+.webgazer-menu-btn.disabled {
+  position: relative;
+}
+
+.webgazer-menu-btn.disabled::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 25000;
+  margin-bottom: 5px;
+}
+
+.webgazer-menu-btn.disabled:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Arrow for tooltip */
+.webgazer-menu-btn.disabled::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid rgba(0, 0, 0, 0.9);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 25000;
+}
+
+.webgazer-menu-btn.disabled:hover::before {
+  opacity: 1;
+  visibility: visible;
+}
+
 .tracking-status-indicator {
   padding: 8px 12px;
   background: #f0f0f0;
@@ -1895,6 +1959,216 @@ html {
   background-color: #1565c0 !important;
   color: #ffffff !important;
   border-color: #1565c0 !important;
+}
+
+/* Heatmap Overlay */
+.heatmap-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 25000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+}
+
+.heatmap-overlay.show {
+  display: flex;
+}
+
+.heatmap-container {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 90vw;
+  max-height: 90vh;
+  width: 1000px;
+  text-align: center;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(25, 118, 210, 0.12);
+  border: 1px solid rgba(25, 118, 210, 0.08);
+}
+
+.heatmap-header h2 {
+  color: #1976d2;
+  margin-bottom: 12px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.heatmap-header p {
+  color: #666;
+  margin-bottom: 24px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.heatmap-stats {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+  padding: 16px;
+  background: linear-gradient(135deg, #e3f2fd 0%, #f5f5f5 100%);
+  border: 1px solid #e1f5fe;
+  border-radius: 12px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.heatmap-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 140px;
+}
+
+.heatmap-stat .stat-label {
+  font-size: 12px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+.heatmap-stat .stat-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1976d2;
+}
+
+/* Special styling for hotspot area */
+.heatmap-stat:last-child .stat-value {
+  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+.heatmap-stat:last-child .stat-value::before {
+  content: "🎯 ";
+  -webkit-text-fill-color: #1976d2;
+  color: #1976d2;
+}
+
+.heatmap-canvas-container {
+  margin: 24px 0;
+  min-height: 400px;
+  background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+  border-radius: 12px;
+  border: 2px dashed rgba(25, 118, 210, 0.2);
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 2px 8px rgba(25, 118, 210, 0.05);
+}
+
+.heatmap-canvas-container canvas {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+}
+
+.heatmap-canvas-container .heatmap-background {
+  display: none;
+}
+
+.heatmap-canvas-container.with-background .heatmap-background {
+  display: block;
+}
+
+.heatmap-placeholder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #999;
+  text-align: center;
+}
+
+.heatmap-placeholder svg {
+  width: 64px;
+  height: 64px;
+  color: #ccc;
+  margin-bottom: 16px;
+}
+
+.heatmap-controls {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.heatmap-controls .btn {
+  padding: 10px 20px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  border-radius: 8px !important;
+  min-width: auto !important;
+}
+
+.heatmap-controls .btn-primary {
+  background-color: #1976d2 !important;
+  color: #ffffff !important;
+  border: 1px solid #1976d2 !important;
+}
+
+.heatmap-controls .btn-primary:hover {
+  background-color: #1565c0 !important;
+  color: #ffffff !important;
+  border-color: #1565c0 !important;
+}
+
+.heatmap-controls .btn-outline-primary {
+  background-color: transparent !important;
+  color: #1976d2 !important;
+  border: 1px solid #1976d2 !important;
+}
+
+.heatmap-controls .btn-outline-primary:hover {
+  background-color: #1976d2 !important;
+  color: #ffffff !important;
+  border-color: #1976d2 !important;
+}
+
+/* Responsive design for heatmap overlay */
+@media (max-width: 768px) {
+  .heatmap-container {
+    padding: 16px;
+    width: 95vw;
+    max-height: 95vh;
+  }
+
+  .heatmap-header h2 {
+    font-size: 22px;
+  }
+
+  .heatmap-stats {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .heatmap-stat {
+    min-width: auto;
+    text-align: center;
+  }
+
+  .heatmap-canvas-container {
+    min-height: 300px;
+  }
+
+  .heatmap-controls {
+    flex-direction: column;
+  }
+
+  .heatmap-controls .btn {
+    width: 100%;
+  }
 }
 
 /* WebGazer dot customization */

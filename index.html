@@ -31,6 +31,16 @@
       src="https://webgazer.cs.brown.edu/webgazer.js"
       type="text/javascript"
     ></script>
+    <!-- Heatmap.js Library -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/heatmap.js@2.0.5/build/heatmap.min.js"
+      type="text/javascript"
+    ></script>
+    <!-- html2canvas Library for screenshots -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+      type="text/javascript"
+    ></script>
     <script src="webgazer-controller.js" defer></script>
     <script src="script.js" defer></script>
   </head>
@@ -142,6 +152,51 @@
           </button>
           <button id="finish-calibration" class="btn btn-primary" disabled>
             Finalizar Calibración
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Heatmap Overlay -->
+    <div id="heatmap-overlay" class="heatmap-overlay">
+      <div class="heatmap-container">
+        <div class="heatmap-header">
+          <h2>🎯 Mapa de Calor - Seguimiento Ocular</h2>
+          <p>
+            Visualización de los datos recolectados durante el seguimiento
+            ocular. Las zonas rojas indican mayor concentración de la mirada.
+          </p>
+        </div>
+
+        <div class="heatmap-stats">
+          <div class="heatmap-stat">
+            <span class="stat-label">Puntos Recolectados:</span>
+            <span id="heatmap-points-count" class="stat-value">0</span>
+          </div>
+          <div class="heatmap-stat">
+            <span class="stat-label">Tiempo de Seguimiento:</span>
+            <span id="heatmap-duration" class="stat-value">0s</span>
+          </div>
+          <div class="heatmap-stat">
+            <span class="stat-label">Área de Mayor Concentración:</span>
+            <span id="heatmap-hotspot" class="stat-value">-</span>
+          </div>
+        </div>
+
+        <div id="heatmap-canvas-container" class="heatmap-canvas-container">
+          <!-- El mapa de calor se generará aquí -->
+        </div>
+
+        <div class="heatmap-controls">
+          <button id="close-heatmap" class="btn btn-secondary">Cerrar</button>
+          <button id="toggle-heatmap-view" class="btn btn-outline-primary">
+            🖼️ Mostrar Contexto
+          </button>
+          <button id="download-heatmap" class="btn btn-primary">
+            💾 Descargar Imagen
+          </button>
+          <button id="clear-heatmap-data" class="btn btn-outline-primary">
+            🗑️ Limpiar Datos
           </button>
         </div>
       </div>

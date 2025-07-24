@@ -15,6 +15,16 @@ class EyeTrackingSystem {
     this.minClicksPerPoint = 5;
     this.calibrationAccuracy = 0;
 
+    // Heatmap data collection
+    this.gazeData = [];
+    this.trackingStartTime = null;
+    this.trackingEndTime = null;
+    this.heatmapInstance = null;
+    this.pageScreenshot = null;
+
+    // Calibration state
+    this.isCalibrated = false;
+
     // Store original alert functions
     this.originalAlert = window.alert;
     this.originalConfirm = window.confirm;
@@ -44,6 +54,8 @@ class EyeTrackingSystem {
   }
 
   setupEventListeners() {
+    // Initialize button states
+    this.initializeButtonStates();
     // Main toggle button
     const toggleBtn = document.getElementById("webgazer-toggle");
     const menu = document.getElementById("webgazer-menu");
@@ -60,43 +72,91 @@ class EyeTrackingSystem {
     });
 
     // Menu buttons
-    document.getElementById("calibrate-btn")?.addEventListener("click", () => {
-      this.startCalibration();
-      menu.classList.remove("show");
-    });
+    document
+      .getElementById("calibrate-btn")
+      ?.addEventListener("click", async () => {
+        await this.startCalibration();
+        menu.classList.remove("show");
+      });
 
     document
       .getElementById("toggle-tracking-btn")
       ?.addEventListener("click", () => {
-        this.toggleTracking();
+        if (this.isCalibrated) {
+          this.toggleTracking();
+        } else {
+          this.showNotification(
+            "Por favor, realiza la calibración antes de activar el seguimiento",
+            "warning"
+          );
+        }
       });
 
     document
       .getElementById("toggle-prediction-btn")
       ?.addEventListener("click", () => {
-        this.togglePrediction();
+        if (this.isCalibrated && this.isTracking) {
+          this.togglePrediction();
+        } else if (!this.isCalibrated) {
+          this.showNotification(
+            "Por favor, realiza la calibración antes de mostrar predicciones",
+            "warning"
+          );
+        } else if (!this.isTracking) {
+          this.showNotification(
+            "Activa el seguimiento antes de mostrar predicciones",
+            "warning"
+          );
+        }
       });
 
     // Calibration controls
     document
       .getElementById("skip-calibration")
-      ?.addEventListener("click", (e) => {
+      ?.addEventListener("click", async (e) => {
         e.preventDefault();
-        this.skipCalibration();
+        await this.skipCalibration();
       });
 
     document
       .getElementById("restart-calibration")
-      ?.addEventListener("click", (e) => {
+      ?.addEventListener("click", async (e) => {
         e.preventDefault();
-        this.restartCalibration();
+        await this.restartCalibration();
       });
 
     document
       .getElementById("finish-calibration")
+      ?.addEventListener("click", async (e) => {
+        e.preventDefault();
+        await this.finishCalibration();
+      });
+
+    // Heatmap controls
+    document.getElementById("close-heatmap")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      this.closeHeatmapOverlay();
+    });
+
+    document
+      .getElementById("download-heatmap")
       ?.addEventListener("click", (e) => {
         e.preventDefault();
-        this.finishCalibration();
+        this.downloadHeatmap();
+      });
+
+    document
+      .getElementById("clear-heatmap-data")
+      ?.addEventListener("click", (e) => {
+        e.preventDefault();
+        this.clearHeatmapData();
+      });
+
+    document
+      .getElementById("toggle-heatmap-view")
+      ?.addEventListener("click", (e) => {
+        e.preventDefault();
+        this.toggleHeatmapView();
       });
 
     // Keyboard shortcuts
@@ -141,6 +201,11 @@ class EyeTrackingSystem {
         .setGazeListener((data, timestamp) => {
           if (data && this.showPrediction) {
             // The built-in dot will be shown automatically
+          }
+
+          // Collect gaze data for heatmap generation
+          if (data && this.isTracking && !this.isCalibrating) {
+            this.collectGazeData(data.x, data.y, timestamp);
           }
         })
         .begin();
@@ -206,6 +271,12 @@ class EyeTrackingSystem {
       const initialized = await this.initializeWebGazer();
       if (initialized) {
         this.isTracking = true;
+        this.trackingStartTime = Date.now();
+        this.gazeData = []; // Reset gaze data
+
+        // Capture screenshot of current page state
+        await this.capturePageScreenshot();
+
         trackingBtn.querySelector("span").textContent =
           "Desactivar Seguimiento";
         statusText.textContent = "Seguimiento: Activado";
@@ -213,10 +284,18 @@ class EyeTrackingSystem {
         mainBtn.classList.add("active");
         trackingBtn.classList.add("active");
 
-        this.showNotification("Seguimiento ocular activado");
+        this.showNotification(
+          this.isCalibrated
+            ? "Seguimiento ocular activado - Recolectando datos para mapa de calor"
+            : "Seguimiento activado sin calibración - Se recomienda calibrar primero para mejor precisión"
+        );
+
+        // Update button states
+        this.updateButtonStates();
       }
     } else {
       // Stop tracking
+      this.trackingEndTime = Date.now();
       this.isCalibrating = false;
 
       // Hide face overlay and feedback box
@@ -236,7 +315,22 @@ class EyeTrackingSystem {
       this.hideVideoFeed();
       this.closeAllOverlays();
 
-      this.showNotification("Seguimiento ocular desactivado");
+      // Show heatmap if we have collected data
+      if (this.gazeData.length > 0) {
+        setTimeout(() => {
+          this.showHeatmapOverlay();
+        }, 500);
+        this.showNotification(
+          `Seguimiento desactivado - Generando mapa de calor con ${this.gazeData.length} puntos`
+        );
+      } else {
+        this.showNotification(
+          "Seguimiento ocular desactivado - No se recolectaron datos"
+        );
+      }
+
+      // Update button states
+      this.updateButtonStates();
     }
   }
 
@@ -386,11 +480,11 @@ class EyeTrackingSystem {
   }
 
   async startCalibration() {
+    // Initialize WebGazer for calibration only (not for tracking)
     if (!this.isTracking) {
       const initialized = await this.initializeWebGazer();
       if (!initialized) return;
-      this.isTracking = true;
-      this.updateTrackingUI();
+      // Don't set tracking to true - we only need WebGazer for calibration
     }
 
     // Suppress any potential WebGazer alerts during calibration
@@ -638,23 +732,34 @@ class EyeTrackingSystem {
     }
   }
 
-  finishCalibration() {
+  async finishCalibration() {
     // Save current scroll position
     const currentScrollX = window.scrollX;
     const currentScrollY = window.scrollY;
 
     this.isCalibrating = false;
+    this.isCalibrated = true; // Mark as calibrated
     this.closeAllOverlays();
 
     // Move video back to default position or hide it
     this.moveVideoToDefaultPosition();
 
-    // Always ensure video is hidden after calibration unless prediction is explicitly active
-    if (!this.showPrediction) {
-      setTimeout(() => {
-        this.hideVideoFeed();
-      }, 150); // Delay to ensure moveVideoToDefaultPosition completes first
+    // Always ensure video is hidden after calibration
+    setTimeout(() => {
+      this.hideVideoFeed();
+    }, 150);
+
+    // Stop WebGazer after calibration - user will restart it when ready to track
+    if (!this.isTracking) {
+      try {
+        await webgazer.end();
+      } catch (error) {
+        console.log("WebGazer already ended or not initialized");
+      }
     }
+
+    // Enable tracking and prediction buttons
+    this.updateButtonStates();
 
     // Restore alert functions
     this.restoreAlerts();
@@ -664,10 +769,19 @@ class EyeTrackingSystem {
       window.scrollTo(currentScrollX, currentScrollY);
     }, 10);
 
-    this.showNotification("¡Calibración completada exitosamente!", "success");
+    this.showNotification(
+      "¡Calibración completada! Ahora puedes activar el seguimiento cuando quieras empezar a recolectar datos",
+      "success"
+    );
   }
 
-  restartCalibration() {
+  async restartCalibration() {
+    // If WebGazer was ended after previous calibration, reinitialize it
+    if (!this.isTracking) {
+      const initialized = await this.initializeWebGazer();
+      if (!initialized) return;
+    }
+
     this.currentCalibrationPoint = 0;
     this.calibrationData = {};
     this.calibrationAccuracy = 0;
@@ -682,23 +796,34 @@ class EyeTrackingSystem {
     this.showNextCalibrationPoint();
   }
 
-  skipCalibration() {
+  async skipCalibration() {
     // Save current scroll position
     const currentScrollX = window.scrollX;
     const currentScrollY = window.scrollY;
 
     this.isCalibrating = false;
+    this.isCalibrated = true; // Mark as calibrated even if skipped
     this.closeAllOverlays();
 
     // Move video back to default position or hide it
     this.moveVideoToDefaultPosition();
 
-    // Always ensure video is hidden after calibration unless prediction is explicitly active
-    if (!this.showPrediction) {
-      setTimeout(() => {
-        this.hideVideoFeed();
-      }, 150); // Delay to ensure moveVideoToDefaultPosition completes first
+    // Always ensure video is hidden after calibration
+    setTimeout(() => {
+      this.hideVideoFeed();
+    }, 150);
+
+    // Stop WebGazer after calibration - user will restart it when ready to track
+    if (!this.isTracking) {
+      try {
+        await webgazer.end();
+      } catch (error) {
+        console.log("WebGazer already ended or not initialized");
+      }
     }
+
+    // Enable tracking and prediction buttons
+    this.updateButtonStates();
 
     // Restore alert functions
     this.restoreAlerts();
@@ -708,7 +833,10 @@ class EyeTrackingSystem {
       window.scrollTo(currentScrollX, currentScrollY);
     }, 10);
 
-    this.showNotification("Calibración omitida - La precisión puede ser menor");
+    this.showNotification(
+      "Calibración omitida - Puedes activar el seguimiento cuando quieras pero la precisión puede ser menor",
+      "warning"
+    );
   }
 
   startAccuracyTest() {
@@ -821,6 +949,7 @@ class EyeTrackingSystem {
     const currentScrollY = window.scrollY;
 
     document.getElementById("calibration-overlay")?.classList.remove("show");
+    document.getElementById("heatmap-overlay")?.classList.remove("show");
     this.isCalibrating = false;
 
     // Restore alert functions when closing overlays
@@ -869,6 +998,8 @@ class EyeTrackingSystem {
           ? "#f44336"
           : type === "success"
           ? "#4caf50"
+          : type === "warning"
+          ? "#ff9800"
           : "#2196f3"
       };
       color: white;
@@ -898,6 +1029,445 @@ class EyeTrackingSystem {
         document.body.removeChild(notification);
       }, 300);
     }, 3000);
+  }
+
+  initializeButtonStates() {
+    const trackingBtn = document.getElementById("toggle-tracking-btn");
+    const predictionBtn = document.getElementById("toggle-prediction-btn");
+
+    // Disable buttons initially
+    if (trackingBtn) {
+      trackingBtn.classList.add("disabled");
+      trackingBtn.title =
+        "Realiza la calibración antes de activar el seguimiento";
+      const span = trackingBtn.querySelector("span");
+      if (span && !span.textContent.includes("🔒")) {
+        span.textContent = "🔒 " + span.textContent;
+      }
+    }
+
+    if (predictionBtn) {
+      predictionBtn.classList.add("disabled");
+      predictionBtn.title =
+        "Realiza la calibración antes de mostrar predicciones";
+      const span = predictionBtn.querySelector("span");
+      if (span && !span.textContent.includes("🔒")) {
+        span.textContent = "🔒 " + span.textContent;
+      }
+    }
+  }
+
+  updateButtonStates() {
+    const trackingBtn = document.getElementById("toggle-tracking-btn");
+    const predictionBtn = document.getElementById("toggle-prediction-btn");
+
+    if (this.isCalibrated) {
+      // Enable tracking button
+      if (trackingBtn) {
+        trackingBtn.classList.remove("disabled");
+        trackingBtn.title = "Activar o desactivar el seguimiento ocular";
+        const span = trackingBtn.querySelector("span");
+        if (span && span.textContent.includes("🔒 ")) {
+          span.textContent = span.textContent.replace("🔒 ", "");
+        }
+      }
+
+      // Enable prediction button if tracking is active
+      if (predictionBtn) {
+        if (this.isTracking) {
+          predictionBtn.classList.remove("disabled");
+          predictionBtn.title = "Mostrar u ocultar el punto de predicción";
+          const span = predictionBtn.querySelector("span");
+          if (span && span.textContent.includes("🔒 ")) {
+            span.textContent = span.textContent.replace("🔒 ", "");
+          }
+        } else {
+          predictionBtn.classList.add("disabled");
+          predictionBtn.title =
+            "Activa el seguimiento antes de mostrar predicciones";
+          const span = predictionBtn.querySelector("span");
+          if (span && !span.textContent.includes("🔒")) {
+            span.textContent = "🔒 " + span.textContent;
+          }
+        }
+      }
+    }
+  }
+
+  // Heatmap functionality
+  collectGazeData(x, y, timestamp) {
+    // Only collect data if coordinates are valid and within viewport
+    if (x > 0 && y > 0 && x < window.innerWidth && y < window.innerHeight) {
+      this.gazeData.push({
+        x: Math.round(x),
+        y: Math.round(y),
+        value: 1,
+        timestamp: timestamp,
+      });
+    }
+  }
+
+  showHeatmapOverlay() {
+    const overlay = document.getElementById("heatmap-overlay");
+    overlay.classList.add("show");
+
+    this.generateHeatmap();
+    this.updateHeatmapStats();
+  }
+
+  closeHeatmapOverlay() {
+    // Save current scroll position
+    const currentScrollX = window.scrollX;
+    const currentScrollY = window.scrollY;
+
+    const overlay = document.getElementById("heatmap-overlay");
+    overlay.classList.remove("show");
+
+    // Restore scroll position to prevent unwanted scrolling
+    setTimeout(() => {
+      window.scrollTo(currentScrollX, currentScrollY);
+    }, 10);
+  }
+
+  generateHeatmap() {
+    const container = document.getElementById("heatmap-canvas-container");
+
+    // Clear previous heatmap
+    container.innerHTML = "";
+
+    if (this.gazeData.length === 0) {
+      container.innerHTML = `
+        <div class="heatmap-placeholder">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H11V21H5V3H13V9H21Z"/>
+          </svg>
+          <p>No hay datos de seguimiento para mostrar</p>
+        </div>
+      `;
+      return;
+    }
+
+    // Set container dimensions
+    const containerWidth = container.offsetWidth;
+    const containerHeight = Math.max(400, container.offsetHeight);
+
+    // Add background image if available
+    if (this.pageScreenshot) {
+      const backgroundImg = document.createElement("img");
+      backgroundImg.src = this.pageScreenshot;
+      backgroundImg.className = "heatmap-background";
+      backgroundImg.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        opacity: 0.7;
+        z-index: 1;
+      `;
+      container.appendChild(backgroundImg);
+
+      // Start with background visible
+      container.classList.add("with-background");
+
+      // Update toggle button text
+      const toggleBtn = document.getElementById("toggle-heatmap-view");
+      if (toggleBtn) {
+        toggleBtn.textContent = "🎯 Solo Mapa de Calor";
+      }
+    }
+
+    // Scale gaze data to container dimensions
+    const scaledData = this.scaleGazeDataToContainer(
+      this.gazeData,
+      containerWidth,
+      containerHeight
+    );
+
+    // Configure heatmap with higher opacity for better visibility over background
+    const config = {
+      container: container,
+      radius: 40,
+      maxOpacity: this.pageScreenshot ? 0.9 : 0.8, // Higher opacity if there's a background
+      minOpacity: this.pageScreenshot ? 0.2 : 0.1,
+      blur: 0.75,
+      gradient: {
+        0.25: "rgba(0, 0, 255, 1)",
+        0.55: "rgba(0, 255, 0, 1)",
+        0.85: "rgba(255, 255, 0, 1)",
+        1.0: "rgba(255, 0, 0, 1)",
+      },
+    };
+
+    // Create heatmap instance
+    this.heatmapInstance = h337.create(config);
+
+    // Set z-index for heatmap canvas to be above background
+    setTimeout(() => {
+      const heatmapCanvas = container.querySelector("canvas");
+      if (heatmapCanvas) {
+        heatmapCanvas.style.position = "relative";
+        heatmapCanvas.style.zIndex = "2";
+      }
+    }, 100);
+
+    // Process data to get proper heat values
+    const processedData = this.processGazeData(scaledData);
+
+    // Set heatmap data
+    this.heatmapInstance.setData({
+      max: processedData.max,
+      min: 1,
+      data: processedData.data,
+    });
+  }
+
+  scaleGazeDataToContainer(gazeData, containerWidth, containerHeight) {
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    return gazeData.map((point) => ({
+      x: Math.round((point.x / viewportWidth) * containerWidth),
+      y: Math.round((point.y / viewportHeight) * containerHeight),
+      value: point.value,
+      timestamp: point.timestamp,
+    }));
+  }
+
+  processGazeData(gazeData) {
+    // Create a density map to count overlapping points
+    const densityMap = new Map();
+    let maxValue = 1;
+
+    gazeData.forEach((point) => {
+      // Create a key for nearby points (within 20px radius)
+      const gridSize = 20;
+      const gridX = Math.floor(point.x / gridSize) * gridSize;
+      const gridY = Math.floor(point.y / gridSize) * gridSize;
+      const key = `${gridX},${gridY}`;
+
+      if (densityMap.has(key)) {
+        const existingPoint = densityMap.get(key);
+        existingPoint.value += 1;
+        maxValue = Math.max(maxValue, existingPoint.value);
+      } else {
+        densityMap.set(key, {
+          x: gridX + gridSize / 2,
+          y: gridY + gridSize / 2,
+          value: 1,
+        });
+      }
+    });
+
+    return {
+      max: maxValue,
+      data: Array.from(densityMap.values()),
+    };
+  }
+
+  updateHeatmapStats() {
+    const pointsCount = document.getElementById("heatmap-points-count");
+    const duration = document.getElementById("heatmap-duration");
+    const hotspot = document.getElementById("heatmap-hotspot");
+
+    // Update points count
+    pointsCount.textContent = this.gazeData.length.toLocaleString();
+
+    // Update duration
+    if (this.trackingStartTime && this.trackingEndTime) {
+      const durationSeconds = Math.round(
+        (this.trackingEndTime - this.trackingStartTime) / 1000
+      );
+      const minutes = Math.floor(durationSeconds / 60);
+      const seconds = durationSeconds % 60;
+      duration.textContent =
+        minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s`;
+    }
+
+    // Find hotspot (area with most concentration)
+    const hotspotArea = this.findHotspotArea();
+    hotspot.textContent = hotspotArea;
+  }
+
+  findHotspotArea() {
+    if (this.gazeData.length === 0) return "-";
+
+    // Divide screen into sections and find the one with most points
+    const sections = {
+      "Superior Izquierda": { minX: 0, maxX: 0.33, minY: 0, maxY: 0.33 },
+      "Superior Centro": { minX: 0.33, maxX: 0.67, minY: 0, maxY: 0.33 },
+      "Superior Derecha": { minX: 0.67, maxX: 1, minY: 0, maxY: 0.33 },
+      "Centro Izquierda": { minX: 0, maxX: 0.33, minY: 0.33, maxY: 0.67 },
+      Centro: { minX: 0.33, maxX: 0.67, minY: 0.33, maxY: 0.67 },
+      "Centro Derecha": { minX: 0.67, maxX: 1, minY: 0.33, maxY: 0.67 },
+      "Inferior Izquierda": { minX: 0, maxX: 0.33, minY: 0.67, maxY: 1 },
+      "Inferior Centro": { minX: 0.33, maxX: 0.67, minY: 0.67, maxY: 1 },
+      "Inferior Derecha": { minX: 0.67, maxX: 1, minY: 0.67, maxY: 1 },
+    };
+
+    const sectionCounts = {};
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    // Initialize counts
+    Object.keys(sections).forEach((section) => {
+      sectionCounts[section] = 0;
+    });
+
+    // Count points in each section
+    this.gazeData.forEach((point) => {
+      const relativeX = point.x / viewportWidth;
+      const relativeY = point.y / viewportHeight;
+
+      Object.entries(sections).forEach(([sectionName, bounds]) => {
+        if (
+          relativeX >= bounds.minX &&
+          relativeX < bounds.maxX &&
+          relativeY >= bounds.minY &&
+          relativeY < bounds.maxY
+        ) {
+          sectionCounts[sectionName]++;
+        }
+      });
+    });
+
+    // Find section with most points
+    let maxSection = "Centro";
+    let maxCount = 0;
+    Object.entries(sectionCounts).forEach(([section, count]) => {
+      if (count > maxCount) {
+        maxCount = count;
+        maxSection = section;
+      }
+    });
+
+    return `${maxSection} (${maxCount} puntos)`;
+  }
+
+  downloadHeatmap() {
+    if (!this.heatmapInstance) {
+      this.showNotification("No hay mapa de calor para descargar", "error");
+      return;
+    }
+
+    try {
+      const container = document.getElementById("heatmap-canvas-container");
+      const hasBackground = container.classList.contains("with-background");
+
+      if (hasBackground && this.pageScreenshot) {
+        // Create a composite image with background + heatmap
+        this.downloadCompositeHeatmap();
+      } else {
+        // Download just the heatmap
+        const dataURL = this.heatmapInstance.getDataURL();
+        const link = document.createElement("a");
+        const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+        link.download = `mapa-calor-${timestamp}.png`;
+        link.href = dataURL;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
+      this.showNotification("Mapa de calor descargado exitosamente", "success");
+    } catch (error) {
+      console.error("Error downloading heatmap:", error);
+      this.showNotification("Error al descargar el mapa de calor", "error");
+    }
+  }
+
+  downloadCompositeHeatmap() {
+    const container = document.getElementById("heatmap-canvas-container");
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = container.offsetWidth;
+    canvas.height = container.offsetHeight;
+
+    // Draw background image
+    const backgroundImg = new Image();
+    backgroundImg.onload = () => {
+      ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height);
+
+      // Draw heatmap on top
+      const heatmapImg = new Image();
+      heatmapImg.onload = () => {
+        ctx.drawImage(heatmapImg, 0, 0);
+
+        // Download the composite
+        const link = document.createElement("a");
+        const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+        link.download = `mapa-calor-contexto-${timestamp}.png`;
+        link.href = canvas.toDataURL("image/png");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
+      heatmapImg.src = this.heatmapInstance.getDataURL();
+    };
+    backgroundImg.src = this.pageScreenshot;
+  }
+
+  clearHeatmapData() {
+    this.gazeData = [];
+    this.trackingStartTime = null;
+    this.trackingEndTime = null;
+    this.pageScreenshot = null;
+
+    // Reset toggle button
+    const toggleBtn = document.getElementById("toggle-heatmap-view");
+    if (toggleBtn) {
+      toggleBtn.textContent = "🖼️ Mostrar Contexto";
+    }
+
+    // Reset calibration state if user wants to start fresh
+    // this.isCalibrated = false;
+    // this.updateButtonStates();
+
+    // Regenerate empty heatmap
+    this.generateHeatmap();
+    this.updateHeatmapStats();
+
+    this.showNotification("Datos del mapa de calor eliminados", "success");
+  }
+
+  async capturePageScreenshot() {
+    try {
+      // Use html2canvas to capture the current page state
+      if (typeof html2canvas !== "undefined") {
+        const canvas = await html2canvas(document.body, {
+          height: window.innerHeight,
+          width: window.innerWidth,
+          scrollX: 0,
+          scrollY: 0,
+          useCORS: true,
+          scale: 0.5, // Reduce scale for better performance
+        });
+        this.pageScreenshot = canvas.toDataURL("image/png");
+      } else {
+        console.warn("html2canvas not available, using fallback");
+        this.pageScreenshot = null;
+      }
+    } catch (error) {
+      console.error("Error capturing screenshot:", error);
+      this.pageScreenshot = null;
+    }
+  }
+
+  toggleHeatmapView() {
+    const container = document.getElementById("heatmap-canvas-container");
+    const toggleBtn = document.getElementById("toggle-heatmap-view");
+
+    if (container.classList.contains("with-background")) {
+      // Hide background
+      container.classList.remove("with-background");
+      toggleBtn.textContent = "🖼️ Mostrar Contexto";
+    } else {
+      // Show background
+      container.classList.add("with-background");
+      toggleBtn.textContent = "🎯 Solo Mapa de Calor";
+    }
   }
 }
 
