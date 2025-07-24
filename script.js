@@ -188,8 +188,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Keyboard navigation improvements removed for simplicity
-
   // Announce page changes for screen readers
   function announcePageChange(sectionName) {
     const announcement = document.createElement("div");
@@ -461,7 +459,7 @@ document.addEventListener("DOMContentLoaded", function () {
     toggle.style.cssText = `
       position: fixed;
       bottom: 20px;
-      right: 20px;
+      left: 20px;
       background: #1976d2;
       color: white;
       border: none;

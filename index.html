@@ -26,11 +26,126 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <!-- WebGazer.js Library -->
+    <script
+      src="https://webgazer.cs.brown.edu/webgazer.js"
+      type="text/javascript"
+    ></script>
+    <script src="webgazer-controller.js" defer></script>
     <script src="script.js" defer></script>
   </head>
   <body>
     <!-- Skip navigation link for keyboard users -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- WebGazer Controls - Fixed Button -->
+    <div id="webgazer-controls" class="webgazer-controls">
+      <button
+        id="webgazer-toggle"
+        class="webgazer-main-btn"
+        title="Eye Tracking Controls"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
+            fill="currentColor"
+          />
+        </svg>
+      </button>
+
+      <div id="webgazer-menu" class="webgazer-menu">
+        <button id="calibrate-btn" class="webgazer-menu-btn">
+          <span>Calibrar</span>
+        </button>
+        <button id="toggle-tracking-btn" class="webgazer-menu-btn">
+          <span id="tracking-status">Activar Seguimiento</span>
+        </button>
+        <button id="toggle-prediction-btn" class="webgazer-menu-btn">
+          <span id="prediction-status">Mostrar Predicción</span>
+        </button>
+        <div class="tracking-status-indicator">
+          <span id="status-text">Seguimiento: Desactivado</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Calibration Overlay -->
+    <div id="calibration-overlay" class="calibration-overlay">
+      <div class="calibration-container">
+        <div class="calibration-header">
+          <h2>Calibración de Seguimiento Ocular</h2>
+          <p class="calibration-note">
+            Mira fijamente cada punto azul y haz clic en él cuando aparezca.
+          </p>
+          <p>
+            Se necesitan al menos <span id="min-clicks">5</span> clics por punto
+            para una buena calibración.
+          </p>
+        </div>
+
+        <!-- Contenedor para la cámara dentro del modal -->
+        <div
+          id="calibration-camera-container"
+          class="calibration-camera-container"
+        >
+          <div class="camera-placeholder">
+            <svg
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9Z"
+                fill="currentColor"
+              />
+              <path
+                d="M21 5H17L15 3H9L7 5H3C2.45 5 2 5.45 2 6V18C2 18.55 2.45 19 3 19H21C21.55 19 22 18.55 22 18V6C22 5.45 21.55 5 21 5ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17Z"
+                fill="currentColor"
+              />
+            </svg>
+            <span
+              >La cámara y puntos de detección facial aparecerán aquí durante la
+              calibración</span
+            >
+          </div>
+        </div>
+
+        <div class="calibration-progress">
+          <div class="progress-bar">
+            <div id="calibration-progress-fill" class="progress-fill"></div>
+          </div>
+          <span id="calibration-progress-text">0/9 puntos completados</span>
+          <div class="calibration-accuracy-display">
+            <span class="accuracy-label">Precisión Estimada:</span>
+            <span id="calibration-accuracy" class="accuracy-value">0.0%</span>
+          </div>
+        </div>
+
+        <div id="calibration-points" class="calibration-points">
+          <!-- Los puntos de calibración se generarán dinámicamente -->
+        </div>
+
+        <div class="calibration-controls">
+          <button id="skip-calibration" class="btn btn-secondary">
+            Saltar Calibración
+          </button>
+          <button id="restart-calibration" class="btn btn-outline-primary">
+            Reiniciar
+          </button>
+          <button id="finish-calibration" class="btn btn-primary" disabled>
+            Finalizar Calibración
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- Header -->
     <header class="header" role="banner">
