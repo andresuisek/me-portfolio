@@ -22,9 +22,9 @@
 2. Tras calibrar, el usuario puede activar/desactivar el seguimiento.
 3. Predicción de la mirada opcional mediante un punto rojo.
 
-![Calibración](eye_tracking_1.png)
+![Calibración](images/eye_tracking_1.png)
 
-![Activar/Desactivar Seguimiento](eye_tracking_2.png)
+![Activar/Desactivar Seguimiento](images/eye_tracking_2.png)
 
 ### 2. Visualización de Mapa de Calor (heatmap.js)
 
@@ -35,7 +35,7 @@
 | 3    | El mapa se superpone sobre una captura de la página, permitiendo contexto visual.             |
 | 4    | Controles: **Mostrar Contexto / Solo Mapa**, **Descargar PNG**, **Limpiar Datos**.            |
 
-![Mapa de Calor](heat_map_1.png)
+![Mapa de Calor](images/heat_map_1.png)
 
 ## ⚡ Uso Rápido
 
